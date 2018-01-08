@@ -15,6 +15,6 @@ page, or provide error information if any input is invalid."""
 
 @app.route("/", methods=['GET'])
 def index():
-    return "Need to link user-signup.html form here"
+    return render_template('user-signup.html')
 
 app.run()
