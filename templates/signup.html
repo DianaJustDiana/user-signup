@@ -19,27 +19,33 @@ left empty, but if there is content in it, then it must be validated. The criter
 for a valid email address in this assignment are that it has a single @, a single ., 
 contains no spaces, and is between 3 and 20 characters long.
 -->
-<!doctype html>
-<html>
-    <body>
-        <form action="/signup", method="post")>
-            <label>Sign up here</label>
+{% extends "base.html" %}
 
-            <label for="username">Username</label>
-            <input id="username" placeholder="Must be 3-20 characters. Spaces not allowed." type="text" name="username" />
+{% block content %}
+<style>
+        .error { color: red; }
+</style>
+    <h1>Sign up here</h1>
 
-            <label for="password">Password</label>
-            <input id="password" placeholder="Must be 3-20 characters. Spaces not allowed." type="text" name="password" />
+    <form  method="post">
 
-            <label for="verify-password">Verify password</label>
-            <input id="verify-password" placeholder="Must match password as typed above." type="text" name="verify-password"/> 
+    <label for="username">Username</label>
+    <input id="username" placeholder="3-20 characters. No spaces." type="text" name="username" value="{{username}}"/>
+    <p class="error">{{username_error}}</p>
 
-            <label for="email">Email address</label>
-            <input id=email placeholder="Email is optional." type="text" name="email" />    
+    <label for="password">Password</label>
+    <input id="password" placeholder="3-20 characters. No spaces." type="text" name="password" />
+    <p class="error">{{password_error}}</p>
 
-            <input type="submit" value="Submit"/>
-        </form>
-    </body>
-</html>
+    <label for="password-verify">Verify password</label>
+    <input id="password-verify" placeholder="Type password again." type="text" name="password-verify"/> 
+    <p class="error">{{password_verify_error}}</p>
 
+    <label for="email">Email address</label>
+    <input id=email placeholder="Email is optional." type="text" name="email" value="{{email}}"/>    
+    <p class="error">{{email_error}}</p>
+
+    <input type="submit" value="Submit"/>
+</form>
+{% endblock %}
 

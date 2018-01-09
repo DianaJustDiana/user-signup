@@ -11,7 +11,7 @@ page, or provide error information if any input is invalid."""
 #to /user-signup.html route.
 @app.route('/', methods=['GET'])
 def index():
-    return render_template('signup.html')
+    return render_template('signup.html', title='Sign up here')
 
 #Comes from / route. Handler for results of user-signup.html form. Validates user input
 #and goes to welcome.html route.
@@ -37,36 +37,38 @@ def validate_input():
 
     #Use this on username.
     if len(username) == 0:
-        username_error = "Oops! You're too mysterious for me. This field can't be empty."
+        username_error = "Oops! This field can't be empty. Please choose a username 3-20 characters long."
+    elif not 3 < len(username) <= 20:
+        username_error = "I'm sorry, but your username must be 3-20 characters."
+    elif " " in username:
+        username_error = "Hmm ... username can't contain a space."
 
     #Use this on password:
     if len(password) == 0:
         password_error = "Oops! This field can't be empty. Please choose a password 3-20 characters long."
-    if not 3 <= len(password) <= 20:
+    elif not 3 <= len(password) <= 20:
         password_error = "I'm sorry, but password must be 3-20 characters."  
-    if " " in password:
+    elif " " in password:
         password_error = "Hmm ... password can't contain a space."
 
     #Use this on password-verify.
     if password != password_verify:
-        passwords_verify_error = "Whoops! These didn't match. Please try again."
+        password_verify_error = "Whoops! These didn't match. Please try again."
    
     #Use this on email.
     if len(email) > 0:
     
-        if "." not in email:
-            email_error = "Email address should contain one period (.) in it."
-        if "@" not in email:
-            email_error = "Email address should contain one @ in it."
-        if not 3 <= len(email) <= 20:
+        if "." not in email or "@" not in email:
+            email_error = "Email address should contain one period (.) and one @."
+        elif not 3 <= len(email) <= 20:
             email_error = "Email address must be 3-20 characters."
-        if " " in email:
+        elif " " in email:
             email_error = "Hmm ... email address can't contain a space." 
             
     if not username_error and not password_error and not password_verify_error and not email_error: 
-        return render_template('welcome.html', username=username)
+        return render_template('welcome.html', username=username, title='Success!')
     else:
-        return render_template('signup.html', username=username, email=email, username_error=username_error, password_error=password_error, password_verify_error=password_verify_error, email_error=email_error)
+        return render_template('signup.html', username=username, email=email, username_error=username_error, password_error=password_error, password_verify_error=password_verify_error, email_error=email_error, title="Let's try again")
 
 
 #@app.route('/welcome', methods=['GET'])
