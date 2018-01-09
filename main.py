@@ -66,7 +66,7 @@ def validate_input():
     if not username_error and not password_error and not password_verify_error and not email_error: 
         return render_template('welcome.html', username=username)
     else:
-        return render_template('signup.html', username=username, email=email, username_blank_error=username_blank_error, password_blank_error=password_blank_error, password_no_space_error=password_no_space_error, password_verify_blank_error=password_verify_blank_error, password_wrong_length_error=password_wrong_length_error, passwords_must_match_error=passwords_must_match_error, email_cannot_have_space_error=email_cannot_have_space_error, email_needs_at_symbol_error=email_needs_at_symbol_error, email_needs_period_error=email_needs_period_error, email_wrong_length_error=email_wrong_length_error)
+        return render_template('signup.html', username=username, email=email, username_error=username_error, password_error=password_error, password_verify_error=password_verify_error, email_error=email_error)
 
 
 #@app.route('/welcome', methods=['GET'])
